@@ -28,6 +28,7 @@ function CategorySearch({ Categories }) {
                         index < 6 && (
                             <Link
                                 key={category.id}
+                                href={`/search/${category.id}`}
                                 className="flex flex-col items-center justify-center space-y-2 p-4 rounded-lg 
                                 border-2 border-gray-100 hover:scale-110 hover:text-primary bg-lime-50
                                 transition-all ease-in-out

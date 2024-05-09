@@ -6,9 +6,9 @@ import MainLayout from "@/Layouts/MainLayout";
 import { Head } from "@inertiajs/react";
 import React from "react";
 
-function Home({ Categories, Doctors }) {
+function Home({ Categories, Doctors, auth }) {
     return (
-        <MainLayout>
+        <MainLayout auth={auth}>
             <Head title="Home" />
             <Hero />
             <CategorySearch Categories={Categories} />
