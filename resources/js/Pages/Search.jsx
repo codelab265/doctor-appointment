@@ -17,7 +17,11 @@ function Search({ Categories, Category, Doctors, auth }) {
                     />
                 </div>
                 <div className="col-span-4 md:col-span-3 md:px-4">
-                    <DoctorList Doctors={Doctors} heading={Category.name} />
+                    <DoctorList
+                        Doctors={Doctors}
+                        heading={Category.name}
+                        lg_class="lg:grid-cols-3"
+                    />
                 </div>
             </div>
         </MainLayout>

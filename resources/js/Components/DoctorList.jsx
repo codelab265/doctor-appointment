@@ -1,11 +1,18 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { Link } from "@inertiajs/react";
 
-function DoctorList({ Doctors, heading = "Popular Doctor" }) {
+function DoctorList({
+    Doctors,
+    heading = "Popular Doctor",
+    lg_class = "lg:grid-cols-4",
+}) {
     return (
         <div className="my-10">
             <div className="font-bold text-xl">{heading}</div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 mt-5">
+            <div
+                className={`grid grid-cols-1 md:grid-cols-2 ${lg_class} gap-7 mt-5`}
+            >
                 {Doctors.map((doctor, index) => (
                     <div className="rounded-lg p-4 border" key={doctor.id}>
                         <div className="w-full h-[250px] ">
@@ -28,9 +35,14 @@ function DoctorList({ Doctors, heading = "Popular Doctor" }) {
                             <div className="text-gray-500 text-sm">
                                 {doctor.address} years
                             </div>
-                            <Button className="rounded-full w-full bg-primary text-lime-100">
-                                Book Now
-                            </Button>
+                            <Link
+                                className="w-full"
+                                href={route("doctor.details", doctor.user_id)}
+                            >
+                                <Button className="rounded-full w-full bg-primary text-lime-100">
+                                    Book Now
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 ))}

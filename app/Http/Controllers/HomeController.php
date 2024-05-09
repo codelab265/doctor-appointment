@@ -25,4 +25,12 @@ class HomeController extends Controller
         $Doctors = DoctorDetail::where('category_id', $category)->with('doctor', 'category')->get();
         return Inertia::render('Search', ['Category' => $Category, 'Categories' => $Categories, 'Doctors' => $Doctors]);
     }
+
+    public function doctorDetails($id)
+    {
+        $Doctor = DoctorDetail::query()->where('user_id', $id)->with('doctor', 'category')->first();
+        $suggestions = DoctorDetail::query()->whereNot('user_id', $id)->with('doctor', 'category')->get();
+
+        return Inertia::render('DoctorDetails', ['Doctor' => $Doctor, 'Suggestions' => $suggestions]);
+    }
 }
