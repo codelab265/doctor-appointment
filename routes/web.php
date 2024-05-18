@@ -15,6 +15,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/details/{id}', [HomeController::class, 'doctorDetails'])->name('doctor.details');
+    Route::post('doctor/review/store', [HomeController::class, 'storeReview'])->name('doctor.review.store');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

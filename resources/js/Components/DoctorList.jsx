@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "@inertiajs/react";
+import { Star } from "lucide-react";
 
 function DoctorList({
     Doctors,
@@ -15,12 +16,25 @@ function DoctorList({
             >
                 {Doctors.map((doctor, index) => (
                     <div className="rounded-lg p-4 border" key={doctor.id}>
-                        <div className="w-full h-[250px] ">
+                        <div className="w-full h-[250px] relative">
                             <img
                                 src={`/storage/${doctor.image}`}
                                 alt={doctor.doctor.name}
                                 className="w-full h-full object-cover rounded-lg"
                             />
+                            <div className="flex items-center absolute bottom-1 left-2">
+                                {[1, 2, 3, 4, 5].map((item, index) => (
+                                    <Star
+                                        key={index}
+                                        className={`w-4 h-4 ${
+                                            item <=
+                                            parseInt(doctor.averageRating)
+                                                ? "text-yellow-500"
+                                                : "text-gray-500"
+                                        }`}
+                                    />
+                                ))}
+                            </div>
                         </div>
                         <div className="flex flex-col gap-2 items-baseline ">
                             <div className="py-1 px-2 bg-lime-100 text-primary text-[10px] font-medium rounded-full mt-5">

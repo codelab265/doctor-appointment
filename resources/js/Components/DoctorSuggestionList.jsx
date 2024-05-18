@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 import { Button } from "./ui/button";
+import { Star } from "lucide-react";
 
 function DoctorSuggestionList({ Suggestions }) {
     return (
@@ -26,6 +27,19 @@ function DoctorSuggestionList({ Suggestions }) {
                             </div>
                             <div className="font-extrabold text-base">
                                 {doctor.doctor.name}
+                            </div>
+                            <div className="flex items-center">
+                                {[1, 2, 3, 4, 5].map((item, index) => (
+                                    <Star
+                                        key={index}
+                                        className={`w-4 h-4 ${
+                                            item <=
+                                            parseInt(doctor.averageRating)
+                                                ? "text-yellow-500"
+                                                : "text-gray-500"
+                                        }`}
+                                    />
+                                ))}
                             </div>
                             <div className="text-primary text-sm">
                                 {doctor.experience} years

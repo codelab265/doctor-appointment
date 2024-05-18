@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(DoctorDetail::class, 'user_id')->with('category');
     }
+
+    public function reviews()
+    {
+        return $this->hasOne(Review::class, 'doctor_id');
+    }
 }

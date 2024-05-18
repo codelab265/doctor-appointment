@@ -4,7 +4,7 @@ import MainLayout from "@/Layouts/MainLayout";
 import { Head } from "@inertiajs/react";
 import React from "react";
 
-function DoctorDetails({ auth, Doctor, Suggestions }) {
+function DoctorDetails({ auth, Doctor, Suggestions, Reviews, AverageRating }) {
     return (
         <MainLayout auth={auth}>
             <Head title={Doctor.doctor.name} />
@@ -15,7 +15,11 @@ function DoctorDetails({ auth, Doctor, Suggestions }) {
 
                 <div className="mt-5 grid grid-cols-1 lg:grid-cols-4 lg:gap-5">
                     <div className="col-span-3">
-                        <DoctorDetail Doctor={Doctor} />
+                        <DoctorDetail
+                            Doctor={Doctor}
+                            Reviews={Reviews}
+                            AverageRating={AverageRating}
+                        />
                     </div>
                     <div className="">
                         <DoctorSuggestionList Suggestions={Suggestions} />
