@@ -32,7 +32,7 @@ function DoctorDetail({ Doctor, Reviews, AverageRating }) {
                     </div>
 
                     <div className="flex flex-col lg:flex-row gap-2">
-                        <BookAppointment />
+                        <BookAppointment Doctor={Doctor} />
                         <WriteReview Doctor={Doctor} />
                     </div>
                 </div>

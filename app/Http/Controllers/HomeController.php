@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Category;
 use App\Models\DoctorDetail;
 use App\Models\Review;
@@ -65,5 +66,26 @@ class HomeController extends Controller
                 'comment' => $request->comment
             ]
         );
+    }
+
+    public function storeBooking(Request $request)
+    {
+        $request->validate([
+            'requested_date' => 'required',
+            'requested_time' => 'required',
+        ]);
+
+        $checkAvailability = Booking::query()->where('doctor_id', $request->doctor_id)->where('user_id', auth()->user()->id)->where('status', 0)->first();
+
+        if ($checkAvailability) {
+            return back()->with('error', 'Already Booked');
+        }
+
+        Booking::create([
+            'doctor_id' => $request->doctor_id,
+            'user_id' => auth()->user()->id,
+            'requested_date' => date('Y-m-d', strtotime($request->requested_date)),
+            'requested_time' => $request->requested_time
+        ]);
     }
 }

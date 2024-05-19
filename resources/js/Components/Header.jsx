@@ -67,6 +67,15 @@ function Header({ user }) {
                             <Dropdown.Link href={route("profile.edit")}>
                                 Profile
                             </Dropdown.Link>
+                            {user.role === "doctor" ? (
+                                <Dropdown.Link href={route("doctor.dashboard")}>
+                                    Dashboard
+                                </Dropdown.Link>
+                            ) : (
+                                <Dropdown.Link href={route("member.dashboard")}>
+                                    Dashboard
+                                </Dropdown.Link>
+                            )}
                             <Dropdown.Link
                                 href={route("logout")}
                                 method="post"
