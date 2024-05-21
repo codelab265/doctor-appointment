@@ -33,7 +33,7 @@ import InputLabel from "./InputLabel";
 import { toast } from "sonner";
 import { Toaster } from "./ui/sonner";
 
-function BookingTable({ Bookings, title }) {
+function BookingTable({ Bookings, title, user }) {
     const { data, setData, post, processing, errors } = useForm({
         status: "",
         booking_id: "",
@@ -57,7 +57,7 @@ function BookingTable({ Bookings, title }) {
                         <TableHead>Date</TableHead>
                         <TableHead>Time</TableHead>
                         <TableHead>Status</TableHead>
-                        <TableHead>Action</TableHead>
+                        {user.role == "doctor" && <TableHead>Action</TableHead>}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -67,15 +67,21 @@ function BookingTable({ Bookings, title }) {
                                 <div className="flex items-center space-x-3">
                                     <div className="avatar">
                                         <div className="mask mask-squircle w-12 h-12 bg-primary rounded-full flex items-center justify-center text-2xl font-bold text-lime-100">
-                                            {booking.user.name.charAt(0)}
+                                            {user.role == "doctor"
+                                                ? booking.user.name.charAt(0)
+                                                : booking.doctor.name.charAt(0)}
                                         </div>
                                     </div>
                                     <div>
                                         <div className="font-bold">
-                                            {booking.user.name}
+                                            {user.role == "doctor"
+                                                ? booking.user.name
+                                                : booking.doctor.name}
                                         </div>
                                         <div className="text-sm opacity-50">
-                                            {booking.user.email}
+                                            {user.role == "doctor"
+                                                ? booking.user.name
+                                                : booking.doctor.name}
                                         </div>
                                     </div>
                                 </div>
@@ -97,63 +103,72 @@ function BookingTable({ Bookings, title }) {
                                     </span>
                                 )}
                             </TableCell>
-                            <TableCell>
-                                <AlertDialog>
-                                    <AlertDialogTrigger
-                                        asChild
-                                        onClick={() =>
-                                            setData("booking_id", booking.id)
-                                        }
-                                    >
-                                        <Button className="rounded-full">
-                                            Change Status
-                                        </Button>
-                                    </AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle>
+                            {user.role == "doctor" && (
+                                <TableCell>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger
+                                            asChild
+                                            onClick={() =>
+                                                setData(
+                                                    "booking_id",
+                                                    booking.id
+                                                )
+                                            }
+                                        >
+                                            <Button className="rounded-full">
                                                 Change Status
-                                            </AlertDialogTitle>
-                                            <AlertDialogDescription>
-                                                <Select
-                                                    defaultValue={data.status}
-                                                    onValueChange={(e) =>
-                                                        setData("status", e)
-                                                    }
-                                                >
-                                                    <SelectTrigger className="w-full my-3">
-                                                        <SelectValue placeholder="Select Status" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="1">
-                                                            Accept
-                                                        </SelectItem>
-                                                        <SelectItem value="2">
-                                                            Reject
-                                                        </SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                                {errors.rating && (
-                                                    <InputError
-                                                        message={errors.rating}
-                                                    />
-                                                )}
-                                            </AlertDialogDescription>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                            <AlertDialogCancel>
-                                                Cancel
-                                            </AlertDialogCancel>
-                                            <Button
-                                                disabled={processing}
-                                                onClick={handleSubmit}
-                                            >
-                                                Submit
                                             </Button>
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
-                            </TableCell>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>
+                                                    Change Status
+                                                </AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    <Select
+                                                        defaultValue={
+                                                            data.status
+                                                        }
+                                                        onValueChange={(e) =>
+                                                            setData("status", e)
+                                                        }
+                                                    >
+                                                        <SelectTrigger className="w-full my-3">
+                                                            <SelectValue placeholder="Select Status" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="1">
+                                                                Accept
+                                                            </SelectItem>
+                                                            <SelectItem value="2">
+                                                                Reject
+                                                            </SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                    {errors.rating && (
+                                                        <InputError
+                                                            message={
+                                                                errors.rating
+                                                            }
+                                                        />
+                                                    )}
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>
+                                                    Cancel
+                                                </AlertDialogCancel>
+                                                <Button
+                                                    disabled={processing}
+                                                    onClick={handleSubmit}
+                                                >
+                                                    Submit
+                                                </Button>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
+                                </TableCell>
+                            )}
                         </TableRow>
                     ))}
                 </TableBody>

@@ -31,4 +31,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'doctor', 'as' => 'doctor.'], 
     Route::get('reviews', [DoctorController::class, 'reviews'])->name('reviews');
 });
 
+Route::group(['middleware' => 'auth', 'prefix' => 'member', 'as' => 'member.'], function () {
+    Route::get('dashboard', [DoctorController::class, 'index'])->name('dashboard');
+    Route::get('bookings', [DoctorController::class, 'bookings'])->name('bookings');
+});
+
 require __DIR__ . '/auth.php';

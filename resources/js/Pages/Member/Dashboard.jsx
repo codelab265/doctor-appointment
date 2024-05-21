@@ -3,12 +3,7 @@ import { Head } from "@inertiajs/react";
 
 import BookingTable from "@/Components/BookingTable";
 
-export default function Dashboard({
-    auth,
-    recentBookings,
-    reviewsCount,
-    bookingsCount,
-}) {
+export default function Dashboard({ auth, recentBookings, bookingsCount }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -37,12 +32,6 @@ export default function Dashboard({
                                     {bookingsCount}
                                 </div>
                                 <div className="text-gray-500">Accepted</div>
-                            </div>
-                            <div className="flex flex-col p-8  rounded-lg border gap-2 bg-red-100">
-                                <div className="text-3xl font-bold">
-                                    {bookingsCount}
-                                </div>
-                                <div className="text-gray-500">Reviews</div>
                             </div>
                         </div>
 
