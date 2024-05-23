@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -27,13 +28,16 @@ Route::group(['middleware' => 'auth', 'prefix' => 'doctor', 'as' => 'doctor.'], 
     Route::get('dashboard', [DoctorController::class, 'index'])->name('dashboard');
     Route::get('bookings', [DoctorController::class, 'bookings'])->name('bookings');
     Route::post('booking/update', [DoctorController::class, 'updateBooking'])->name('booking.update');
+    Route::get('diagnosis', [DoctorController::class, 'diagnosis'])->name('diagnosis');
+    Route::post('diagnosis/store', [DoctorController::class, 'createDiagnosis'])->name('diagnosis.store');
 
     Route::get('reviews', [DoctorController::class, 'reviews'])->name('reviews');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'member', 'as' => 'member.'], function () {
-    Route::get('dashboard', [DoctorController::class, 'index'])->name('dashboard');
-    Route::get('bookings', [DoctorController::class, 'bookings'])->name('bookings');
+    Route::get('dashboard', [MemberController::class, 'index'])->name('dashboard');
+    Route::get('bookings', [MemberController::class, 'bookings'])->name('bookings');
+    Route::get('diagnosis', [MemberController::class, 'diagnosis'])->name('diagnosis');
 });
 
 require __DIR__ . '/auth.php';

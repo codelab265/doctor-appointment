@@ -53,7 +53,9 @@ function BookingTable({ Bookings, title, user }) {
                 <TableCaption>{title}</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Member</TableHead>
+                        <TableHead>
+                            {user.role == "doctor" ? "Member" : "Doctor"}
+                        </TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead>Time</TableHead>
                         <TableHead>Status</TableHead>

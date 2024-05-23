@@ -52,18 +52,28 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Bookings
                                 </NavLink>
+                                {user.role === "doctor" && (
+                                    <NavLink
+                                        href="/doctor/reviews"
+                                        active={route().current(
+                                            "doctor.reviews"
+                                        )}
+                                    >
+                                        Reviews
+                                    </NavLink>
+                                )}
                                 <NavLink
                                     href={
                                         user.role === "doctor"
-                                            ? "/doctor/reviews"
-                                            : "/member/reviews"
+                                            ? "/doctor/diagnosis"
+                                            : "/member/diagnosis"
                                     }
                                     active={
-                                        route().current("member.reviews") ||
-                                        route().current("doctor.reviews")
+                                        route().current("member.diagnosis") ||
+                                        route().current("doctor.diagnosis")
                                     }
                                 >
-                                    Reviews
+                                    Diagnosis
                                 </NavLink>
                             </div>
                         </div>

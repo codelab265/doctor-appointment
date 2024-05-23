@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Diagnosis;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ class MemberController extends Controller
     {
         $bookingsCount = Booking::query()->where('user_id', auth()->user()->id)->count();
 
-        $recentBookings = Booking::query()->where('user_id', auth()->user()->id)->with('user')->latest()->limit(5)->get();
+        $recentBookings = Booking::query()->where('user_id', auth()->user()->id)->with('doctor')->latest()->limit(5)->get();
 
 
         return Inertia::render('Member/Dashboard', compact('bookingsCount', 'recentBookings'));
@@ -26,5 +27,11 @@ class MemberController extends Controller
         $bookings = Booking::query()->where('user_id', auth()->user()->id)->with('doctor')->get();
 
         return Inertia::render('Member/Bookings', compact('bookings'));
+    }
+
+    public function diagnosis()
+    {
+        $Diagnosis = Diagnosis::query()->where('user_id', auth()->user()->id)->with('doctor')->get();
+        return Inertia::render('Member/Diagnosis', compact('Diagnosis'));
     }
 }
